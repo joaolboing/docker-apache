@@ -8,7 +8,12 @@ a2enmod proxy_http
 
 RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/log/supervisor
 
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
+
+
+ADD start-apache2.sh /start-apache2.sh
+ADD run.sh /run.sh
+RUN chmod 755 /*.sh
 
 EXPOSE 80
-CMD ["/usr/bin/supervisord"]
+CMD ["/run.sh"]
